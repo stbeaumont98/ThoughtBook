@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ThoughtBook</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="save_string">Save</string>
+    <string name="flag_string">Flag</string>
+    <string name="remind_string">Add Reminder</string>
+    <string name="lock_string">Lock</string>
+</resources>

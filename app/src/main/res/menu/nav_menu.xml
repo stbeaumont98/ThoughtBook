@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/itemHome"
+            android:icon="@drawable/ic_outline_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/itemDashboard"
+            android:icon="@drawable/ic_outline_dashboard"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/itemTrash"
+            android:icon="@drawable/ic_round_trash"
+            android:title="Trash" />
+    </group>
+</menu>

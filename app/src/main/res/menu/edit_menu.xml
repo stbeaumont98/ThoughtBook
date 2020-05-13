@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/ic_outline_add_alert"
+        android:title="@string/remind_string"
+        app:showAsAction="always" />
+    <item
+        android:icon="@drawable/ic_round_outlined_flag_24px"
+        android:title="@string/flag_string"
+        app:showAsAction="always" />
+    <item
+        android:icon="@drawable/ic_round_lock_open"
+        android:title="@string/lock_string"
+        app:showAsAction="always" />
+</menu>
