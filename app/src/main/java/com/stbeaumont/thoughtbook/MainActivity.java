@@ -19,6 +19,8 @@ import java.util.Queue;
 
 public class MainActivity extends AppCompatActivity {
 
+    public HomeFragment homeFragment;
+
     private FragmentTransaction transaction;
     private BottomAppBar bottomBar;
     private FloatingActionButton fab;
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        HomeFragment homeFragment = new HomeFragment(notes);
+        homeFragment = new HomeFragment(notes);
 
         homeFragment.setUIElements(actionBar, bottomBar, fab, title);
 

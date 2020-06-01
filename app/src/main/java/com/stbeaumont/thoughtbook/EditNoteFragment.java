@@ -33,6 +33,7 @@ public class EditNoteFragment extends Fragment {
     ActionBar actionBar;
 
     Boolean locked = false;
+    Boolean starred = false;
 
     int position;
 
@@ -52,11 +53,12 @@ public class EditNoteFragment extends Fragment {
                         locked = !locked;
                         item.setIcon(locked ? R.drawable.ic_round_lock : R.drawable.ic_round_lock_open);
                         return true;
+                    case R.id.menuStar:
+                        starred = !starred;
+                        item.setIcon(starred ? R.drawable.ic_star : R.drawable.ic_star_border);
+                        return true;
                     case R.id.menuAddReminder:
                         //add reminder
-                        return true;
-                    case R.id.menuStar:
-                        //flag note
                         return true;
                     default:
                         return false;
@@ -89,16 +91,19 @@ public class EditNoteFragment extends Fragment {
         editContent = v.findViewById(R.id.editTextNoteContent);
 
         MenuItem menuLock = bottomBar.getMenu().findItem(R.id.menuLock);
+        MenuItem menuStar = bottomBar.getMenu().findItem(R.id.menuStar);
 
         if (getArguments() != null) {
             String[] note = getArguments().getStringArray("note");
             position = getArguments().getInt("position");
             locked = getArguments().getBoolean("locked");
+            starred = getArguments().getBoolean("starred");
 
             if (note != null) {
                 editTitle.setText(note[0]);
                 editContent.setText(note[1]);
                 menuLock.setIcon(locked ? R.drawable.ic_round_lock : R.drawable.ic_round_lock_open);
+                menuStar.setIcon(starred ? R.drawable.ic_star : R.drawable.ic_star_border);
             }
         }
 
@@ -120,6 +125,7 @@ public class EditNoteFragment extends Fragment {
                 b.putInt("position", position);
                 b.putStringArray("note", new String[] {editTitle.getText().toString(), editContent.getText().toString()});
                 b.putBoolean("locked", locked);
+                b.putBoolean("starred", starred);
 
                 Fragment homeFragment = null;
                 if (getFragmentManager() != null) {

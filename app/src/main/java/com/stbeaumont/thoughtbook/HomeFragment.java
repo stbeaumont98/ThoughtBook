@@ -57,13 +57,26 @@ public class HomeFragment extends Fragment implements NotesAdapter.NoteClickList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_home, container, false);
 
+        //Set MainActivity views
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setDisplayShowHomeEnabled(false);
-
         setHasOptionsMenu(true);
+
+        title.setVisibility(View.VISIBLE);
+
+        bottomBar.setNavigationIcon(R.drawable.ic_round_menu);
+        bottomBar.replaceMenu(R.menu.home_menu);
+        bottomBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
+        fab.setImageDrawable(ContextCompat.getDrawable(Objects.requireNonNull(getActivity()).getApplicationContext(), R.drawable.ic_outline_create));
+        MainActivity.EDIT_MODE = false;
+
+        //Sort the notes
+        SortNotes sn = new SortNotes();
+        sn.sortNotes(notes);
+
+        // Set up views specific for this fragment
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         rvNotes = v.findViewById(R.id.notesRecyclerView);
         textEmpty = v.findViewById(R.id.textEmpty);
@@ -77,18 +90,9 @@ public class HomeFragment extends Fragment implements NotesAdapter.NoteClickList
 
         rvNotes.setLayoutManager(toggle ? staggeredGridLayoutManager : linearLayoutManager);
 
-
         ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(rvNotes);
-
-        title.setVisibility(View.VISIBLE);
-
-        bottomBar.setNavigationIcon(R.drawable.ic_round_menu);
-        bottomBar.replaceMenu(R.menu.home_menu);
-        bottomBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
-        fab.setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.ic_outline_create));
-        MainActivity.EDIT_MODE = false;
 
         return v;
     }
@@ -109,6 +113,11 @@ public class HomeFragment extends Fragment implements NotesAdapter.NoteClickList
             }
 
             notes.get(position).setLock(getArguments().getBoolean("locked"));
+            notes.get(position).setStarred(getArguments().getBoolean("starred"));
+
+            //Sort the notes
+            SortNotes sn = new SortNotes();
+            sn.sortNotes(notes);
         }
 
         if (notes.size() > 0) {
@@ -145,6 +154,7 @@ public class HomeFragment extends Fragment implements NotesAdapter.NoteClickList
         b.putInt("position", position);
         b.putStringArray("note", new String[] {notes.get(position).getNoteTitle(), notes.get(position).getNoteContent()});
         b.putBoolean("locked", notes.get(position).isLocked());
+        b.putBoolean("starred", notes.get(position).isStarred());
 
         EditNoteFragment editNoteFragment = new EditNoteFragment();
         editNoteFragment.setUIElements(actionBar, bottomBar, fab, title);

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         public TextView noteContent;
         public ImageView iconStar;
         public ImageView iconLock;
+        public ConstraintLayout constraintTitle;
 
         NoteClickListener noteClickListener;
 
@@ -42,6 +44,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             noteContent = v.findViewById(R.id.note_card_content);
             iconStar = v.findViewById(R.id.iconStar);
             iconLock = v.findViewById(R.id.iconLock);
+            constraintTitle = v.findViewById(R.id.constraintTitle);
 
             this.noteClickListener = noteClickListener;
 
@@ -81,6 +84,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         TextView textContent = holder.noteContent;
         ImageView iconStar = holder.iconStar;
         ImageView iconLock = holder.iconLock;
+        ConstraintLayout constraintTitle = holder.constraintTitle;
 
         textTitle.setText(note.getNoteTitle());
         textContent.setText(note.getNoteContent());
@@ -89,6 +93,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             textContent.setVisibility(View.GONE);
         } else {
             textContent.setVisibility(View.VISIBLE);
+        }
+
+        if (note.getNoteTitle().isEmpty() && !note.isLocked() && !note.isStarred()) {
+            constraintTitle.setVisibility(View.GONE);
+        } else {
+            constraintTitle.setVisibility(View.VISIBLE);
         }
 
         if (note.isLocked()) {

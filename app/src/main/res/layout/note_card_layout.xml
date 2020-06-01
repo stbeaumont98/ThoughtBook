@@ -23,13 +23,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="15dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/note_card_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -42,8 +42,10 @@
                     android:id="@+id/iconStar"
                     android:layout_width="18sp"
                     android:layout_height="18sp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/iconLock"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_star"
@@ -54,7 +56,7 @@
                     android:id="@+id/iconLock"
                     android:layout_width="18sp"
                     android:layout_height="18sp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/iconStar"
                     app:layout_constraintTop_toTopOf="parent"
@@ -62,22 +64,9 @@
                     tools:layout_conversion_absoluteHeight="0dp"
                     tools:layout_conversion_absoluteWidth="0dp" />
 
-                <Space
-                    android:id="@+id/space"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/note_card_title"
-                    app:layout_constraintStart_toEndOf="@+id/iconStar"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_conversion_absoluteHeight="0dp"
-                    tools:layout_conversion_absoluteWidth="372dp"
-                    tools:layout_editor_absoluteX="20dp"
-                    tools:layout_editor_absoluteY="33dp" />
-
                 <TextView
                     android:id="@+id/note_card_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
                     android:textAlignment="viewEnd"
@@ -85,13 +74,12 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constrainedWidth="true"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iconLock"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_conversion_absoluteHeight="24dp"
-                    tools:layout_conversion_absoluteWidth="0dp"
-                    tools:layout_editor_absoluteX="392dp"
-                    tools:layout_editor_absoluteY="21dp" />
+                    tools:layout_conversion_absoluteWidth="0dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -99,11 +87,11 @@
                 android:id="@+id/note_card_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintTitle"
                 tools:layout_conversion_absoluteHeight="19dp"
                 tools:layout_conversion_absoluteWidth="0dp" />
 
