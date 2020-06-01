@@ -3,15 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menuAddReminder"
         android:icon="@drawable/ic_outline_add_alert"
-        android:title="@string/remind_string"
+        android:title="@string/menu_remind_text"
         app:showAsAction="always" />
     <item
-        android:icon="@drawable/ic_round_outlined_flag_24px"
-        android:title="@string/flag_string"
+        android:id="@+id/menuStar"
+        android:icon="@drawable/ic_star_border"
+        android:title="@string/menu_flag_text"
         app:showAsAction="always" />
     <item
+        android:id="@+id/menuLock"
         android:icon="@drawable/ic_round_lock_open"
-        android:title="@string/lock_string"
+        android:title="@string/menu_lock_text"
         app:showAsAction="always" />
 </menu>

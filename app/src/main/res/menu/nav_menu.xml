@@ -3,16 +3,16 @@
 
     <group>
         <item
-            android:id="@+id/itemHome"
+            android:id="@+id/menuHome"
             android:icon="@drawable/ic_outline_home"
-            android:title="Home" />
+            android:title="@string/menu_home_text" />
         <item
-            android:id="@+id/itemDashboard"
+            android:id="@+id/menuDashboard"
             android:icon="@drawable/ic_outline_dashboard"
-            android:title="Dashboard" />
+            android:title="@string/menu_dashboard_text" />
         <item
-            android:id="@+id/itemTrash"
+            android:id="@+id/menuTrash"
             android:icon="@drawable/ic_round_trash"
-            android:title="Trash" />
+            android:title="@string/menu_trash_text" />
     </group>
 </menu>

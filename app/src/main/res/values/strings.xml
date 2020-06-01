@@ -1,9 +1,21 @@
 <resources>
+
     <string name="app_name">ThoughtBook</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="save_string">Save</string>
-    <string name="flag_string">Flag</string>
-    <string name="remind_string">Add Reminder</string>
-    <string name="lock_string">Lock</string>
+    <!-- menu text -->
+    <string name="menu_save_text">Save</string>
+    <string name="menu_flag_text">Flag</string>
+    <string name="menu_remind_text">Add Reminder</string>
+    <string name="menu_lock_text">Lock</string>
+    <string name="menu_search_text">Search</string>
+    <string name="menu_home_text">Home</string>
+    <string name="menu_dashboard_text">Dashboard</string>
+    <string name="menu_trash_text">Trash</string>
+    <string name="menu_toggle_view_text">Toggle View</string>
+    <string name="menu_settings_text">Settings</string>
+
+    <string name="hint_title_text">Title</string>
+    <string name="hint_note_text">Note</string>
+    <string name="no_notes_text">No notes!</string>
+
 </resources>

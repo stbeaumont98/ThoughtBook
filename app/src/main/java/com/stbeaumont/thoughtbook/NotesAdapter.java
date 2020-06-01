@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,30 +15,42 @@ import java.util.List;
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> implements ItemTouchHelperAdapter {
 
     private List<Notes> mNotes;
+    private NoteClickListener mNoteClickListener;
 
-    public NotesAdapter(List<Notes> notes) {
+    public NotesAdapter(List<Notes> notes, NoteClickListener noteClickListener) {
         mNotes = notes;
+        mNoteClickListener = noteClickListener;
     }
 
     /****************************************************************
      * Grabs the different views from the card layout so they can be
      * changed for each individual card
      ****************************************************************/
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        // Your holder should contain a member variable
-        // for any view that will be set as you render a row
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         public TextView noteTitle;
         public TextView noteContent;
+        public ImageView iconStar;
+        public ImageView iconLock;
 
-        // We also create a constructor that accepts the entire item row
-        // and does the view lookups to find each subview
-        public ViewHolder(View v) {
-            // Stores the itemView in a public final member variable that can be used
-            // to access the context from any ViewHolder instance.
+        NoteClickListener noteClickListener;
+
+        public ViewHolder(View v, NoteClickListener noteClickListener) {
             super(v);
 
-            noteTitle = (TextView) v.findViewById(R.id.note_card_title);
-            noteContent = (TextView) v.findViewById(R.id.note_card_content);
+            noteTitle = v.findViewById(R.id.note_card_title);
+            noteContent = v.findViewById(R.id.note_card_content);
+            iconStar = v.findViewById(R.id.iconStar);
+            iconLock = v.findViewById(R.id.iconLock);
+
+            this.noteClickListener = noteClickListener;
+
+            v.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            noteClickListener.onNoteClick(getAdapterPosition());
         }
     }
 
@@ -51,12 +64,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.note_card_layout, parent, false);
+        View v = inflater.inflate(R.layout.note_card_layout, parent, false);
 
-        // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(v, mNoteClickListener);
     }
 
     /***********************************************************************
@@ -65,13 +75,33 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
      ***********************************************************************/
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Notes notes = mNotes.get(position);
+        Notes note = mNotes.get(position);
 
-        TextView titleTextView = holder.noteTitle;
-        TextView contentTextView = holder.noteContent;
+        TextView textTitle = holder.noteTitle;
+        TextView textContent = holder.noteContent;
+        ImageView iconStar = holder.iconStar;
+        ImageView iconLock = holder.iconLock;
 
-        titleTextView.setText(notes.getNoteTitle());
-        contentTextView.setText(notes.getNoteContent());
+        textTitle.setText(note.getNoteTitle());
+        textContent.setText(note.getNoteContent());
+
+        if (note.getNoteContent().isEmpty() || note.isLocked()) {
+            textContent.setVisibility(View.GONE);
+        } else {
+            textContent.setVisibility(View.VISIBLE);
+        }
+
+        if (note.isLocked()) {
+            iconLock.setVisibility(View.VISIBLE);
+        } else {
+            iconLock.setVisibility(View.GONE);
+        }
+
+        if (note.isStarred()) {
+            iconStar.setVisibility(View.VISIBLE);
+        } else {
+            iconStar.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -91,6 +121,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     public void onItemDismiss(int position) {
         mNotes.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public interface NoteClickListener {
+        void onNoteClick(int position);
     }
 
 }

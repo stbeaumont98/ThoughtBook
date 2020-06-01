@@ -1,111 +1,116 @@
 package com.stbeaumont.thoughtbook;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Queue;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    BottomAppBar bottomBar;
-    FloatingActionButton fab;
+    private FragmentTransaction transaction;
+    private BottomAppBar bottomBar;
+    private FloatingActionButton fab;
+    private TextView title;
+    private ActionBar actionBar;
 
-    boolean EDIT_MODE = false;
+    public static boolean EDIT_MODE = false;
 
+    private ArrayList<Notes> notes;
+
+    private Queue<Notes> trash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        title = findViewById(R.id.textTitle);
+
+        Toolbar tb = findViewById(R.id.toolbar);
+        setSupportActionBar(tb);
+
+        actionBar = getSupportActionBar();
+
+        if (actionBar != null)
+            actionBar.setDisplayShowTitleEnabled(false);
+
+        notes = new ArrayList<Notes>();
 
         bottomBar = (BottomAppBar) findViewById(R.id.bar);
 
         bottomBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomNavigationMenu navFragment = new BottomNavigationMenu();
+                BottomNavMenuFragment navFragment = new BottomNavMenuFragment();
                 navFragment.show(getSupportFragmentManager(), navFragment.getTag());
             }
         });
 
+        /*
+        bottomBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    default:
+                        return false;
+                }
+            }
+        });
+        */
+
         fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        HomeFragment homeFragment = new HomeFragment(notes);
+
+        homeFragment.setUIElements(actionBar, bottomBar, fab, title);
+
+        transaction = getSupportFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.flFragment, homeFragment, "home");
+        transaction.commit();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fab.hide(new FloatingActionButton.OnVisibilityChangedListener() {
-                        @Override
-                        public void onShown(final FloatingActionButton fab) {
-                            super.onShown(fab);
-                        }
+            if(!EDIT_MODE) {
 
-                        @Override
-                        public void onHidden(final FloatingActionButton fab) {
-                            super.onHidden(fab);
-                            if(!EDIT_MODE) {
-                                bottomBar.setNavigationIcon(null);
-                                bottomBar.replaceMenu(R.menu.edit_menu);
-                                bottomBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
-                                fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_round_add));
-                                EDIT_MODE = true;
-                            } else {
-                                bottomBar.replaceMenu(R.menu.home_menu);
-                                bottomBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
-                                fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_outline_create));
-                                bottomBar.setNavigationIcon(R.drawable.ic_round_menu);
-                                EDIT_MODE = false;
-                            }
-                            fab.show();
-                        }
-                    }
-                );
+                EditNoteFragment editNoteFragment = new EditNoteFragment();
+                editNoteFragment.setUIElements(actionBar, bottomBar, fab, title);
+
+                Bundle b = new Bundle();
+                b.putInt("position", notes.size());
+                b.putStringArray("note", new String[] {"", ""});
+
+                editNoteFragment.setArguments(b);
+
+                //replace the fragment
+                Fragment f = getSupportFragmentManager().findFragmentByTag("edit_note");
+
+                transaction = getSupportFragmentManager().beginTransaction();
+                if (f == null) {
+                    transaction.replace(R.id.flFragment, editNoteFragment, "edit_note");
+                } else {
+                    transaction.replace(R.id.flFragment, f);
+                }
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+            } else {
+
+            }
             }
         });
-
-
-        RecyclerView rvNotes = (RecyclerView) findViewById(R.id.notesRecyclerView);
-
-        ArrayList<Notes> notesList = new ArrayList<Notes>();
-
-        for(int i = 0; i < 5; i++) {
-            notesList.add(new Notes("Note #1", "This is an example of a note!"));
-            notesList.add(new Notes("Note #2", "This is an example of a note! I'm making this note bigger to display a different size card."));
-            notesList.add(new Notes("Note #3", "This is an example of a note! I'm making this note bigger to display a different size card. And this one is even larger than the other one!"));
-        }
-
-        NotesAdapter adapter = new NotesAdapter(notesList);
-
-        rvNotes.setAdapter(adapter);
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
-
-        rvNotes.setLayoutManager(staggeredGridLayoutManager);
-
-        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(rvNotes);
-
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home_menu, menu);
-        return true;
-    }
-
-
 }
