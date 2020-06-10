@@ -27,16 +27,18 @@
         <item name="cornerSizeTopLeft">@dimen/corner_radius</item>
     </style>
 
+    <style name="CustomDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/dialog_corner_radius</item>
+        <item name="cornerSizeTopLeft">@dimen/dialog_corner_radius</item>
+        <item name="cornerSizeBottomRight">@dimen/dialog_corner_radius</item>
+        <item name="cornerSizeBottomLeft">@dimen/dialog_corner_radius</item>
+    </style>
 
     <style name="Widget.AppTheme.BottomSheet" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/white</item>
-    </style>
-
-    <style name="circleImageView" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
     </style>
 
 </resources>

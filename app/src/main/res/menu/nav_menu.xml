@@ -3,6 +3,11 @@
 
     <group>
         <item
+            android:id="@+id/menuSignIn"
+            android:title="Sign In" />
+    </group>
+    <group>
+        <item
             android:id="@+id/menuHome"
             android:icon="@drawable/ic_outline_home"
             android:title="@string/menu_home_text" />

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "948043290516",
+    "firebase_url": "https://thoughtbook-2.firebaseio.com",
+    "project_id": "thoughtbook-2",
+    "storage_bucket": "thoughtbook-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948043290516:android:3653b8fc1dbee6ca5ce181",
+        "android_client_info": {
+          "package_name": "com.stbeaumont.thoughtbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948043290516-u7710a49n88g3plopivlm8jbll8s010j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEW31jDf5YepjtqzBjzAvEQUO6XxII8RA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948043290516-u7710a49n88g3plopivlm8jbll8s010j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

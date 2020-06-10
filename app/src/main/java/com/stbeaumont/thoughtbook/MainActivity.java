@@ -1,5 +1,6 @@
 package com.stbeaumont.thoughtbook;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,19 +8,23 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.Queue;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
     public HomeFragment homeFragment;
+
+    BottomNavMenuFragment navFragment;
 
     private FragmentTransaction transaction;
     private BottomAppBar bottomBar;
@@ -52,16 +57,17 @@ public class MainActivity extends AppCompatActivity {
 
         bottomBar = (BottomAppBar) findViewById(R.id.bar);
 
+        navFragment = new BottomNavMenuFragment(MainActivity.this);
+
         bottomBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomNavMenuFragment navFragment = new BottomNavMenuFragment();
                 navFragment.show(getSupportFragmentManager(), navFragment.getTag());
             }
         });
 
-        /*
-        bottomBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+
+        /*bottomBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
@@ -69,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                 }
             }
-        });
-        */
+        });*/
+
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -114,5 +120,24 @@ public class MainActivity extends AppCompatActivity {
             }
             }
         });
+    }
+
+    public void showLoginDialog() {
+        LoginDialog loginDialog = new LoginDialog();
+        loginDialog.show(getSupportFragmentManager(), "login dialog");
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.menuSignIn: {
+                showLoginDialog();
+                navFragment.dismiss();
+                break;
+            }
+        }
+
+        return false;
     }
 }
