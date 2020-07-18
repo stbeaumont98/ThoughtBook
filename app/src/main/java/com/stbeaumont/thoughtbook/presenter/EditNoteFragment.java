@@ -1,4 +1,4 @@
-package com.stbeaumont.thoughtbook;
+package com.stbeaumont.thoughtbook.presenter;
 
 import android.os.Bundle;
 
@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.stbeaumont.thoughtbook.R;
 
 import java.util.Objects;
 

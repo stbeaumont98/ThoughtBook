@@ -1,4 +1,4 @@
-package com.stbeaumont.thoughtbook;
+package com.stbeaumont.thoughtbook.presenter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.stbeaumont.thoughtbook.model.Notes;
+import com.stbeaumont.thoughtbook.R;
 
 import java.util.List;
 

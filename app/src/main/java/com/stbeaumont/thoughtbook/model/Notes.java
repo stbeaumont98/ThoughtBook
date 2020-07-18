@@ -1,4 +1,4 @@
-package com.stbeaumont.thoughtbook;
+package com.stbeaumont.thoughtbook.model;
 
 import android.graphics.Bitmap;
 

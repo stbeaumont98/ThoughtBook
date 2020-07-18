@@ -10,10 +10,11 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@android:color/white</item>
-        <item name="android:windowLightNavigationBar"
-            tools:targetApi="27">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
         <item name="android:navigationBarColor">@android:color/white</item>
-        <item name="shapeAppearanceLargeComponent">@style/CustomBottomSheetDialog</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyApp.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyApp.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MyApp.LargeComponent</item>
     </style>
 
     <style name="ToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -21,24 +22,25 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="CustomBottomSheetDialog" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopRight">@dimen/corner_radius</item>
-        <item name="cornerSizeTopLeft">@dimen/corner_radius</item>
-    </style>
-
-    <style name="CustomDialog" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopRight">@dimen/dialog_corner_radius</item>
-        <item name="cornerSizeTopLeft">@dimen/dialog_corner_radius</item>
-        <item name="cornerSizeBottomRight">@dimen/dialog_corner_radius</item>
-        <item name="cornerSizeBottomLeft">@dimen/dialog_corner_radius</item>
-    </style>
-
     <style name="Widget.AppTheme.BottomSheet" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/white</item>
+    </style>
+
+    <style name="ShapeAppearance.MyApp.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/small_corner_radius</item>
+    </style>
+
+    <style name="ShapeAppearance.MyApp.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/medium_corner_radius</item>
+    </style>
+
+    <style name="ShapeAppearance.MyApp.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/large_corner_radius</item>
     </style>
 
 </resources>

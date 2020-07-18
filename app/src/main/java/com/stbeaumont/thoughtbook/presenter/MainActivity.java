@@ -1,6 +1,5 @@
-package com.stbeaumont.thoughtbook;
+package com.stbeaumont.thoughtbook.presenter;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,19 +7,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
+import com.stbeaumont.thoughtbook.model.Notes;
+import com.stbeaumont.thoughtbook.R;
 
 import java.util.ArrayList;
 import java.util.Queue;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
+public class MainActivity extends AppCompatActivity  {
 
     public HomeFragment homeFragment;
 
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         bottomBar = (BottomAppBar) findViewById(R.id.bar);
 
-        navFragment = new BottomNavMenuFragment(MainActivity.this);
+        navFragment = new BottomNavMenuFragment();
 
         bottomBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,21 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void showLoginDialog() {
-        LoginDialog loginDialog = new LoginDialog();
+        LoginDialog loginDialog = new LoginDialog(this);
         loginDialog.show(getSupportFragmentManager(), "login dialog");
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-
-            case R.id.menuSignIn: {
-                showLoginDialog();
-                navFragment.dismiss();
-                break;
-            }
-        }
-
-        return false;
     }
 }

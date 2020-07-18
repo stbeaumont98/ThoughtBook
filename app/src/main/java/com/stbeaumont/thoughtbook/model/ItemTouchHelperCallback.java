@@ -1,4 +1,4 @@
-package com.stbeaumont.thoughtbook;
+package com.stbeaumont.thoughtbook.model;
 
 import android.graphics.Canvas;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.stbeaumont.thoughtbook.presenter.ItemTouchHelperAdapter;
 
 public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
